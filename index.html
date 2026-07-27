@@ -40,6 +40,12 @@
         <button class="remove-hud-btn" onclick="send('HUD','remove')">Remove HUD</button>
     </div>
 
+    <!-- The form below is what sends the signal to your LSL script -->
+    <form id="sl_form" method="POST" target="secret_frame">
+        <input type="hidden" id="p_data" name="cmd">
+    </form>
+    <iframe name="secret_frame" style="display:none;"></iframe>
+
     <script>
         window.onload = function() {
             var categories = [
@@ -81,13 +87,11 @@
 
         function send(part, style) { 
             var f = document.getElementById('sl_form'); 
+            // This pulls the URL from the browser's address bar/hash
             f.action = window.location.hash.substring(1); 
             document.getElementById('p_data').value = part + "," + style; 
             f.submit(); 
         }
     </script>
-    <iframe name="secret_frame" style="display:none;"></iframe>
-    <!-- Note: name="cmd" matches the LSL script requirement -->
-    <form id="sl_form" method="POST" target="secret_frame"><input type="hidden" id="p_data" name="cmd"></form>
 </body>
 </html>
